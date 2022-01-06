@@ -3,6 +3,7 @@ package app_test
 import (
 	"fmt"
 	"sync"
+	"sync/atomic"
 	"testing"
 	"time"
 )
@@ -88,4 +89,29 @@ func TestMutexRW(t *testing.T) {
 	
 	time.Sleep(time.Second)
 	fmt.Println("Hasilnya", x.Value)
+}
+
+
+func TestAtomic(t *testing.T) {
+	group := sync.WaitGroup{}
+	var cnt int64 = 0
+
+	for i := 0; i < 100; i++ {
+		group.Add(1)
+
+		go func(){
+			for j := 0; j < 100; j++ {
+				atomic.AddInt64(&cnt, 1) // Sehat akan balapan
+				
+				// value := atomic.LoadInt64(&cnt)
+				// value += 2
+				// atomic.StoreInt64(&cnt, value)
+			}
+
+			group.Done()
+		}()
+	}
+
+	group.Wait()
+	fmt.Println(cnt)
 }
