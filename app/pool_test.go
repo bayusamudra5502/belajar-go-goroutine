@@ -22,7 +22,9 @@ func TestPoolSatu(t *testing.T){
 	for i := 0; i < 10; i++ {
 		wait.Add(1)
 		go func(i int){
-			data := pool.Get() // KLo kosong poolnya, nanti kasi nil
+			// KLo kosong poolnya, nanti kasi nil atau klo 
+			// ada New dilakukan fungsi new
+			data := pool.Get()
 			fmt.Println(i, data)
 
 			time.Sleep(1 * time.Second)
