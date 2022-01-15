@@ -5,7 +5,7 @@ async function belalang() {
   let x = 0
 
   for (let i = 0; i < 1000; i++) {
-    (async function () {
+    (async function() {
       for (let j = 0; j < 100; j++) {
         x++
       }
@@ -16,3 +16,5 @@ async function belalang() {
 }
 
 belalang().then(console.log)
+
+console.log("Halo, Dunia")

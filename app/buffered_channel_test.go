@@ -15,8 +15,8 @@ func TestBuffered1(t *testing.T) {
 
 	fmt.Println(cap(channel))
 	fmt.Println(len(channel))
-	
-	go func(){
+
+	go func() {
 		channel <- "Kumbang"
 		channel <- "Kucing"
 		channel <- "Kuda nil"
@@ -28,15 +28,15 @@ func TestBuffered1(t *testing.T) {
 		channel <- "Nuggu dulu"
 	}()
 
-	go func(){
+	go func() {
 		time.Sleep(4 * time.Second)
-		fmt.Println(<- channel)
-		fmt.Println(<- channel)
-		fmt.Println(<- channel)
-		fmt.Println(<- channel)
-		fmt.Println(<- channel)
+		fmt.Println(<-channel)
+		fmt.Println(<-channel)
+		fmt.Println(<-channel)
+		fmt.Println(<-channel)
+		fmt.Println(<-channel)
 	}()
-		
+
 	fmt.Println("Haha.. ")
 	time.Sleep(15 * time.Second)
 }
