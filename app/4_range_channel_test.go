@@ -38,9 +38,10 @@ func TestRange2(t *testing.T){
 		}
 		
 		close(chGambar)
-		}()
+		fmt.Println("Shut chan down")
+	}()
 		
-		for data := range chGambar {
+	for data := range chGambar {
 			fmt.Println(data)
 			time.Sleep(500 * time.Millisecond)
 	}

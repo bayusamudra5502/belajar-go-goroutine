@@ -14,12 +14,12 @@ import (
 
 func TestChannelAwal(t *testing.T){
 	channel := make(chan string)
-	defer close(channel)
+	defer close(channel) // JANGAN LUPA!
 
 	// Saat mainin sleepnya, lihat timenya berapa lama
 
 	go func() {
-		time.Sleep(3 * time.Second) // Coba pindahin ini sebelum channel ama sesudah
+		time.Sleep(3  * time.Second) // Coba pindahin ini sebelum channel ama sesudah
 		channel <- "Ini pesan channelku"
 		fmt.Println("Setelah Channel aku")
 	}()
@@ -51,6 +51,13 @@ func TestLainnya(t *testing.T){
 	channel := make(chan string)
 	defer close(channel)
 
+	fmt.Println(len(channel))
+	fmt.Println(cap(channel))
+
 	go app.ChannelKeluarSaja(channel)
 	channel <- "Ini Kucing"
+	go app.ChannelKeluarSaja(channel)
+	channel <- "Meok" // Harus dikonsumsi dulu baru bisa jalan lagi
+
+	fmt.Println("Done")
 }

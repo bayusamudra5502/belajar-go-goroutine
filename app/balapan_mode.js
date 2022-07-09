@@ -5,10 +5,16 @@ async function belalang() {
   let x = 0
 
   for (let i = 0; i < 1000; i++) {
-    (async function() {
-      for (let j = 0; j < 100; j++) {
-        x++
-      }
+    (function () {
+      return new Promise((resolve) => {
+        console.log(i)
+
+        for (let j = 0; j < 100; j++) {
+          x++
+        }
+
+        resolve()
+      })
     })()
   }
 

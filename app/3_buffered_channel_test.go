@@ -13,6 +13,9 @@ func TestBuffered1(t *testing.T) {
 	// tapi sekalinya udah penuh si channelnya, dia nunggu
 	// sampe ada yg kosong baru masuk
 
+	// channel := make(chan string)
+	// Channel diatas sama aja kek channel dengan capacity 0
+
 	fmt.Println(cap(channel))
 	fmt.Println(len(channel))
 
@@ -30,10 +33,15 @@ func TestBuffered1(t *testing.T) {
 
 	go func() {
 		time.Sleep(4 * time.Second)
+		fmt.Println("SATU")
 		fmt.Println(<-channel)
+		fmt.Println("DUA")
 		fmt.Println(<-channel)
+		fmt.Println("TIGA")
 		fmt.Println(<-channel)
+		fmt.Println("EMPAT")
 		fmt.Println(<-channel)
+		fmt.Println("LIMA")
 		fmt.Println(<-channel)
 	}()
 

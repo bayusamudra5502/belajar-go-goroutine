@@ -10,6 +10,7 @@ import (
 
 func panicHandler(){
 	recover()
+	fmt.Println("Ok")
 }
 
 func TestSelectChannel(t *testing.T){
@@ -40,12 +41,12 @@ func TestSelectChannel(t *testing.T){
 				fmt.Println("Data dari channel 1", data)
 			case data := <- channel2:
 				fmt.Println("Data dari channel 2", data)
-			default:
+			default: // Klo gaada kesini, daripada nunggu
 				fmt.Println("Tunggu dulu.")
 				time.Sleep(500 * time.Millisecond)
 		}
 
-		if (cnt == 19){
+		if (cnt == 10){
 			break
 		}
 
