@@ -10,7 +10,7 @@ import (
 
 func counterKu(ctx context.Context) <- chan int {
 	channel := make(chan int)
-	
+
 	go func(){
 		defer close(channel)
 		counter := 0
@@ -31,14 +31,17 @@ func counterKu(ctx context.Context) <- chan int {
 }
 
 func TestKonteksPertama(t *testing.T){
+	// Ini context kalengan gaada isinya
 	ctx := context.Background()
+
+	// Sama kek background cuma biasa dipake klo blom jelas untuk apa
 	ctx2 := context.TODO() // Ini juga ada ya
 
 	fmt.Println(ctx)
 	fmt.Println(ctx2)
 }
 
-func TestBuatContext(t *testing.T) {
+func TestBeranakContext(t *testing.T) {
 	ctx := context.Background()
 
 	childA := context.WithValue(ctx, "ID", 1)
@@ -62,8 +65,8 @@ func TestBuatContext(t *testing.T) {
 
 func TestCancelContext(t *testing.T) {
 	fmt.Println("Total Goroutines", runtime.NumGoroutine())
-	parent := context.Background()
-	ctx, cancel := context.WithCancel(parent)
+	parent := context.Background() // HARUS ADA BASENYA!!!
+	ctx, cancel := context.WithCancel(parent) // Cancelable Context
 	
 	dataStream := counterKu(ctx)
 
@@ -77,8 +80,7 @@ func TestCancelContext(t *testing.T) {
 		}
 	}
 
-	cancel()
-	<- dataStream // Cleaning aja
+	cancel() // Berhentikan!!!
 
 	time.Sleep(time.Second/2)
 
@@ -91,13 +93,11 @@ func TestCancelTimeout(t *testing.T) {
 	ctx, cancel := context.WithTimeout(parent, 5 * time.Second)
 	
 	defer func() {
-		cancel()
-
 		time.Sleep(time.Second/2)
 		fmt.Println("Total Goroutines", runtime.NumGoroutine())
-		}()
+	}()
 		
-		dataStream := counterKu(ctx)
+	dataStream := counterKu(ctx)
 		
 	fmt.Println("Total Goroutines", runtime.NumGoroutine())
 	
@@ -111,13 +111,15 @@ func TestCancelTimeout(t *testing.T) {
 	
 	<- dataStream // Cleaning aja
 	fmt.Println("Total Goroutines", runtime.NumGoroutine())
+	cancel()
 }
 
 func TestDelayTimeout(t *testing.T) {
 	fmt.Println("Total Goroutines", runtime.NumGoroutine())
 	parent := context.Background()
 
-	// WithDeadline tu ditentuin kapan deadlinenya
+	// WithDeadline tu ditentuin kapan deadlinenya, mirip kek timeout cuma
+	// waktunya ditentuin bre
 	ctx, cancel := context.WithDeadline(parent, time.Now().Add(time.Second * 5))
 	
 	defer func() {

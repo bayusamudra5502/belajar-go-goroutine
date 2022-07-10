@@ -4,8 +4,9 @@ import (
 	"fmt"
 	"sync"
 	"testing"
-	"time"
 )
+
+// Pool sudah bebas dari balapan
 
 func TestPoolSatu(t *testing.T){
 	pool := sync.Pool{
@@ -27,7 +28,7 @@ func TestPoolSatu(t *testing.T){
 			data := pool.Get()
 			fmt.Println(i, data)
 
-			time.Sleep(1 * time.Second)
+			// time.Sleep(1 * time.Second)
 			pool.Put(data)
 			wait.Done()
 		}(i)

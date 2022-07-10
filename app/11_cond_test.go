@@ -28,7 +28,7 @@ func TestCondition(t *testing.T){
 
 	// Kasi sinyal biar bisa jalan
 	go func() {
-		for i := 0; i < 10; i++ {
+		for i := 0; i < 5; i++ {
 			time.Sleep(time.Second)
 			cond.Signal()
 		}
@@ -45,11 +45,11 @@ func TestConditionBroadcast(t *testing.T){
 		group.Add(1)
 
 		go func(i int){
+			defer group.Done()
 			cond.L.Lock()
 			cond.Wait()
 			fmt.Println("Done",i)
 			cond.L.Unlock()
-			group.Done()
 		}(i)
 
 	}

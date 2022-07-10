@@ -6,6 +6,8 @@ import (
 	"time"
 )
 
+// Ticker atau Tick tu kayak setInterval di js
+
 func TestTicker1(t *testing.T) {
 	ticker := time.NewTicker(1 * time.Second)
 	isStopped := false
